@@ -1,6 +1,8 @@
-streamlit
-subprocess
 spacy
-sklearn
 pandas
-sentence-transformers
+numpy
+scikit-learn 
+scipy 
+matplotlib
+watchdog
+sentence_transformers
