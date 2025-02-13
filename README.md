@@ -52,11 +52,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. Download the spaCy model:
-```bash
-python -m spacy download en_core_web_sm
-```
-
 ## 💻 Running the Application
 
 1. Start the Streamlit app:
