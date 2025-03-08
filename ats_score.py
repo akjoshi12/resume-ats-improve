@@ -519,22 +519,330 @@ class EnhancedATSScorer:
         
         return feedback
 
-class MistralAIATSScorer:
-    """Class for future Mistral AI implementation"""
-    def __init__(self):
-        # Placeholder for future implementation
+
+class MistralAIEnhancer:
+    """
+    Enhances ATS resume analysis using Mistral AI's advanced language understanding capabilities.
+    This class integrates with Mistral's API to provide more sophisticated analysis of resumes
+    against job descriptions.
+    """
+    
+    def __init__(self, api_key: Optional[str] = None):
+        """
+        Initialize the Mistral AI enhancer.
+        
+        Args:
+            api_key: Mistral AI API key. If None, will try to read from MISTRAL_API_KEY environment variable.
+        """
+        self.api_key = api_key or os.environ.get("MISTRAL_API_KEY")
+        if not self.api_key:
+            raise ValueError("Mistral API key is required. Set it either through the constructor or MISTRAL_API_KEY environment variable.")
+        
+        self.api_url = "https://api.mistral.ai/v1/chat/completions"
         self.base_scorer = EnhancedATSScorer()
     
-    def score_resume(self, resume_text, job_description):
-        """Score resume using combined approach with base scorer and Mistral AI"""
-        # For now, just use the base scorer
+    def analyze_resume_with_mistral(self, resume_text: str, job_description: str) -> Dict[str, Any]:
+        """
+        Perform an enhanced analysis of a resume against a job description using Mistral AI.
+        
+        Args:
+            resume_text: The text content of the resume
+            job_description: The text content of the job description
+            
+        Returns:
+            Dict containing enhanced analysis results
+        """
+        # First get the base analysis from our enhanced scorer
         base_results = self.base_scorer.score_resume(resume_text, job_description)
         
-        # This is where we would integrate Mistral AI capabilities
-        # For example, using it for more nuanced language understanding
-        # or to provide more specific, actionable feedback
+        # Extract resume sections
+        resume_sections = self.base_scorer.analyze_resume_sections(resume_text)
         
-        return base_results
+        # Get Mistral AI enhancements
+        mistral_enhancements = self._get_mistral_insights(
+            resume_text=resume_text,
+            job_description=job_description,
+            base_results=base_results,
+            resume_sections=resume_sections
+        )
+        
+        # Merge the results
+        enhanced_results = self._merge_results(base_results, mistral_enhancements)
+        
+        return enhanced_results
+    
+    def _get_mistral_insights(
+        self, 
+        resume_text: str, 
+        job_description: str, 
+        base_results: Dict[str, Any],
+        resume_sections: Dict[str, str]
+    ) -> Dict[str, Any]:
+        """
+        Get insights from Mistral AI to enhance our analysis.
+        
+        Args:
+            resume_text: The text content of the resume
+            job_description: The text content of the job description
+            base_results: Results from the base scorer
+            resume_sections: The resume broken down into sections
+            
+        Returns:
+            Dict containing Mistral AI insights
+        """
+        # Create a structured prompt for Mistral
+        prompt = self._create_mistral_prompt(
+            resume_text=resume_text,
+            job_description=job_description,
+            base_results=base_results,
+            resume_sections=resume_sections
+        )
+        
+        # Call Mistral API
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.api_key}"
+        }
+        
+        payload = {
+            "model": "mistral-large-latest",  # Use appropriate model
+            "messages": [
+                {"role": "system", "content": "You are an advanced ATS (Applicant Tracking System) analyzer that helps improve resume-to-job matching. You provide expert insights on resumes and job descriptions."},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.2,  # Lower temperature for more consistent outputs
+            "response_format": {"type": "json_object"}  # Request structured JSON response
+        }
+        
+        try:
+            response = requests.post(self.api_url, headers=headers, json=payload)
+            response.raise_for_status()
+            
+            # Parse response
+            result = response.json()
+            content = result.get("choices", [{}])[0].get("message", {}).get("content", "{}")
+            
+            # Parse the JSON response
+            mistral_insights = json.loads(content)
+            return mistral_insights
+            
+        except Exception as e:
+            print(f"Error calling Mistral AI: {e}")
+            # Return a minimal structure if API call fails
+            return {
+                "enhanced_feedback": [],
+                "industry_insights": [],
+                "competitive_analysis": {},
+                "improvement_priority": []
+            }
+    
+    def _create_mistral_prompt(
+        self, 
+        resume_text: str, 
+        job_description: str, 
+        base_results: Dict[str, Any],
+        resume_sections: Dict[str, str]
+    ) -> str:
+        """
+        Create a detailed prompt for Mistral AI.
+        
+        Args:
+            resume_text: The text content of the resume
+            job_description: The text content of the job description
+            base_results: Results from the base scorer
+            resume_sections: The resume broken down into sections
+            
+        Returns:
+            A formatted prompt string
+        """
+        # Convert base results to a compact JSON string
+        base_results_json = json.dumps({
+            "overall_score": base_results["overall_score"],
+            "score_breakdown": base_results["score_breakdown"],
+            "missing_skills": base_results["missing_skills"],
+            "section_analysis": base_results["section_analysis"]
+        })
+        
+        # Create sections summary
+        sections_summary = "\n".join([
+            f"--- {section.upper()} SECTION ---\n{content[:300]}..."
+            for section, content in resume_sections.items()
+        ])
+        
+        # Build the prompt with clear instructions
+        prompt = f"""
+As an advanced ATS analyzer, I need your expertise to enhance my analysis of this resume against a job description.
+
+JOB DESCRIPTION:
+```
+{job_description[:2000]}
+```
+
+RESUME SUMMARY BY SECTION:
+```
+{sections_summary}
+```
+
+BASE ANALYSIS RESULTS:
+```json
+{base_results_json}
+```
+
+Please provide your advanced analysis in the following JSON format:
+
+```json
+{{
+    "enhanced_feedback": [
+        // 5-7 specific suggestions to improve the resume for this exact job
+        // Focus on content, structure, emphasis, and wording improvements
+    ],
+    "industry_insights": [
+        // 3-5 insights about this specific industry/role and how the resume could better target them
+    ],
+    "competitive_analysis": {{
+        "strengths": [
+            // 2-3 areas where this candidate stands out compared to typical applicants
+        ],
+        "weaknesses": [
+            // 2-3 areas where this candidate may fall behind typical applicants
+        ]
+    }},
+    "improvement_priority": [
+        // List of 3-5 changes, ordered by impact (highest impact first)
+        // Each item should be specific and actionable
+    ],
+    "ats_optimization_tips": [
+        // 3-5 specific tips to make this resume more ATS-friendly
+    ]
+}}
+```
+
+Focus on providing valuable, specific, and actionable insights that go beyond basic ATS optimization.
+"""
+        return prompt
+    
+    def _merge_results(self, base_results: Dict[str, Any], mistral_enhancements: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Merge base results with Mistral AI enhancements.
+        
+        Args:
+            base_results: Results from the base scorer
+            mistral_enhancements: Insights from Mistral AI
+            
+        Returns:
+            Combined results
+        """
+        # Create a copy of base results
+        enhanced_results = base_results.copy()
+        
+        # Add Mistral enhancements
+        enhanced_results["mistral_insights"] = {
+            "enhanced_feedback": mistral_enhancements.get("enhanced_feedback", []),
+            "industry_insights": mistral_enhancements.get("industry_insights", []),
+            "competitive_analysis": mistral_enhancements.get("competitive_analysis", {}),
+            "improvement_priority": mistral_enhancements.get("improvement_priority", []),
+            "ats_optimization_tips": mistral_enhancements.get("ats_optimization_tips", [])
+        }
+        
+        # Enhance feedback if Mistral provided insights
+        if mistral_enhancements.get("enhanced_feedback"):
+            # Combine base feedback with enhanced feedback
+            enhanced_results["feedback"] = base_results["feedback"] + [
+                "\n🔍 **Advanced AI Insights:**"
+            ] + mistral_enhancements.get("enhanced_feedback", [])
+        
+        return enhanced_results
+
+
+class MistralAIATSScorer:
+    """
+    Complete ATS Scorer implementation using Mistral AI.
+    This class provides a unified interface for resume analysis with Mistral enhancements.
+    """
+    
+    def __init__(self, api_key: Optional[str] = None):
+        """
+        Initialize the Mistral-enhanced ATS scorer.
+        
+        Args:
+            api_key: Mistral AI API key. If None, will try to use EnhancedATSScorer as fallback.
+        """
+        try:
+            self.mistral_enhancer = MistralAIEnhancer(api_key)
+            self.using_mistral = True
+        except (ValueError, ImportError):
+            # Fall back to base scorer if Mistral setup fails
+            self.base_scorer = EnhancedATSScorer()
+            self.using_mistral = False
+    
+    def score_resume(self, resume_text: str, job_description: str) -> Dict[str, Any]:
+        """
+        Score resume against job description with potential Mistral enhancements.
+        
+        Args:
+            resume_text: The text content of the resume
+            job_description: The text content of the job description
+            
+        Returns:
+            Dict containing analysis results
+        """
+        if self.using_mistral:
+            return self.mistral_enhancer.analyze_resume_with_mistral(resume_text, job_description)
+        else:
+            return self.base_scorer.score_resume(resume_text, job_description)
+    
+    def analyze_resume_sections(self, resume_text: str) -> Dict[str, str]:
+        """
+        Analyze and extract sections from the resume.
+        
+        Args:
+            resume_text: The text content of the resume
+            
+        Returns:
+            Dict mapping section names to their content
+        """
+        if self.using_mistral:
+            return self.mistral_enhancer.base_scorer.analyze_resume_sections(resume_text)
+        else:
+            return self.base_scorer.analyze_resume_sections(resume_text)
+
+
+# Example usage
+if __name__ == "__main__":
+    # Example usage with environment variable
+    # os.environ["MISTRAL_API_KEY"] = "your-api-key"
+    
+    try:
+        scorer = MistralAIATSScorer()
+        print(f"Using Mistral AI: {scorer.using_mistral}")
+        
+        # Sample data
+        resume = "Your resume text here..."
+        job_desc = "Job description here..."
+        
+        # Analyze
+        results = scorer.score_resume(resume, job_desc)
+        print(f"Overall score: {results['overall_score']}%")
+        
+        if 'mistral_insights' in results:
+            print("\nMistral AI Insights:")
+            for key, value in results['mistral_insights'].items():
+                print(f"\n{key.upper()}:")
+                if isinstance(value, list):
+                    for item in value:
+                        print(f"- {item}")
+                elif isinstance(value, dict):
+                    for k, v in value.items():
+                        print(f"\n{k}:")
+                        for item in v:
+                            print(f"- {item}")
+    
+    except Exception as e:
+        print(f"Error: {e}")
+        print("Falling back to base ATS scorer...")
+        
+        scorer = EnhancedATSScorer()
+        # Continue with base scorer
 
 
 
