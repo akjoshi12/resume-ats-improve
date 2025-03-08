@@ -6,3 +6,4 @@ scipy
 matplotlib
 watchdog
 sentence_transformers
+plotly
