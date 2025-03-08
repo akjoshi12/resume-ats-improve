@@ -1,5 +1,5 @@
 import streamlit as st
-from enhanced_ats_score import EnhancedATSScorer, MistralAIATSScorer
+from ats_score import EnhancedATSScorer, MistralAIATSScorer
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
