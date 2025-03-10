@@ -4,6 +4,11 @@ An AI-powered application that helps job seekers optimize their resumes by analy
 
 Live Demo : https://resume-ats-improve.streamlit.app/
 
+# How it works
+
+
+
+
 ## 🌟 Features
 
 - Technical skill matching with categorization
