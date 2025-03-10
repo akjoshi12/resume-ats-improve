@@ -6,7 +6,7 @@ Live Demo : https://resume-ats-improve.streamlit.app/
 
 # How it works
 
-![ATS Resume Scorer Workflow](Working.svg)
+![ATS Resume Scorer Workflow](working.svg)
 
 
 ## 🌟 Features
