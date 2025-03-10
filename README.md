@@ -6,7 +6,7 @@ Live Demo : https://resume-ats-improve.streamlit.app/
 
 # How it works
 
-
+[!working.svg]
 
 
 ## 🌟 Features
