@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" width="1100" height="680">
+  <!-- Main Background with subtle gradient -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8f9fa" />
+      <stop offset="100%" stop-color="#e9ecef" />
+    </linearGradient>
+    
+    <!-- Gradient for input section -->
+    <linearGradient id="input-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d8f3dc" />
+      <stop offset="100%" stop-color="#b7e4c7" />
+    </linearGradient>
+    
+    <!-- Gradient for processing section -->
+    <linearGradient id="process-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#dbe7ff" />
+      <stop offset="100%" stop-color="#bbd0ff" />
+    </linearGradient>
+    
+    <!-- Gradient for output section -->
+    <linearGradient id="output-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8df" />
+      <stop offset="100%" stop-color="#ffcbcb" />
+    </linearGradient>
+    
+    <!-- Shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="3" dy="4" stdDeviation="5" flood-opacity="0.2"/>
+    </filter>
+    
+    <!-- Arrow marker -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#495057"/>
+    </marker>
+  </defs>
+  
+  <!-- Main Background -->
+  <rect width="1100" height="680" fill="url(#bg-gradient)" rx="15" ry="15" />
+  
+  <!-- Header area with gradient -->
+  <rect x="50" y="20" width="1000" height="60" rx="10" ry="10" fill="#212529" filter="url(#shadow)" />
+  <text x="550" y="60" font-family="'Segoe UI', Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#ffffff">ATS Resume Scorer: Advanced Workflow</text>
+  
+  <!-- Input Section -->
+  <rect x="70" y="110" width="240" height="290" rx="15" ry="15" fill="url(#input-gradient)" stroke="#198754" stroke-width="2" filter="url(#shadow)" />
+  <text x="190" y="140" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#212529">INPUTS</text>
+  
+  <!-- Resume box -->
+  <rect x="90" y="160" width="200" height="100" rx="10" ry="10" fill="#ffffff" stroke="#198754" stroke-width="1.5" />
+  <text x="190" y="190" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#212529">Resume</text>
+  <text x="190" y="215" font-family="'Segoe UI', Arial, sans-serif" font-size="14" text-anchor="middle" fill="#495057">Raw text with</text>
+  <text x="190" y="235" font-family="'Segoe UI', Arial, sans-serif" font-size="14" text-anchor="middle" fill="#495057">experience, skills, education</text>
+  
+  <!-- Job Description box -->
+  <rect x="90" y="280" width="200" height="100" rx="10" ry="10" fill="#ffffff" stroke="#198754" stroke-width="1.5" />
+  <text x="190" y="310" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#212529">Job Description</text>
+  <text x="190" y="335" font-family="'Segoe UI', Arial, sans-serif" font-size="14" text-anchor="middle" fill="#495057">Position requirements</text>
+  <text x="190" y="355" font-family="'Segoe UI', Arial, sans-serif" font-size="14" text-anchor="middle" fill="#495057">and qualifications</text>
+  
+  <!-- Processing Section -->
+  <rect x="360" y="110" width="380" height="440" rx="15" ry="15" fill="url(#process-gradient)" stroke="#0d6efd" stroke-width="2" filter="url(#shadow)" />
+  <text x="550" y="140" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#212529">ATS ANALYSIS ENGINE</text>
+  
+  <!-- Analysis Components -->
+  <rect x="390" y="170" width="320" height="70" rx="10" ry="10" fill="#ffffff" stroke="#0d6efd" stroke-width="1.5" />
+  <text x="550" y="195" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#212529">Section Analysis</text>
+  <text x="550" y="220" font-family="'Segoe UI', Arial, sans-serif" font-size="13" text-anchor="middle" fill="#495057">Identifies and weights resume sections</text>
+  
+  <rect x="390" y="255" width="320" height="70" rx="10" ry="10" fill="#ffffff" stroke="#0d6efd" stroke-width="1.5" />
+  <text x="550" y="280" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#212529">Technical Skill Extraction</text>
+  <text x="550" y="305" font-family="'Segoe UI', Arial, sans-serif" font-size="13" text-anchor="middle" fill="#495057">Identifies programming languages, tools, etc.</text>
+  
+  <rect x="390" y="340" width="320" height="70" rx="10" ry="10" fill="#ffffff" stroke="#0d6efd" stroke-width="1.5" />
+  <text x="550" y="365" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#212529">Semantic Similarity Analysis</text>
+  <text x="550" y="390" font-family="'Segoe UI', Arial, sans-serif" font-size="13" text-anchor="middle" fill="#495057">BERT-based contextual understanding</text>
+  
+  <rect x="390" y="425" width="320" height="70" rx="10" ry="10" fill="#ffffff" stroke="#0d6efd" stroke-width="1.5" />
+  <text x="550" y="450" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#212529">TF-IDF Keyword Matching</text>
+  <text x="550" y="475" font-family="'Segoe UI', Arial, sans-serif" font-size="13" text-anchor="middle" fill="#495057">Measures keyword importance and frequency</text>
+  
+  <!-- Output Section -->
+  <rect x="790" y="110" width="240" height="440" rx="15" ry="15" fill="url(#output-gradient)" stroke="#dc3545" stroke-width="2" filter="url(#shadow)" />
+  <text x="910" y="140" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#212529">RESULTS</text>
+  
+  <!-- Result Components -->
+  <rect x="815" y="170" width="190" height="60" rx="10" ry="10" fill="#ffffff" stroke="#dc3545" stroke-width="1.5" />
+  <text x="910" y="198" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#212529">Overall Match Score</text>
+  <text x="910" y="218" font-family="'Segoe UI', Arial, sans-serif" font-size="13" text-anchor="middle" fill="#495057">Combined analysis metrics</text>
+  
+  <rect x="815" y="245" width="190" height="60" rx="10" ry="10" fill="#ffffff" stroke="#dc3545" stroke-width="1.5" />
+  <text x="910" y="273" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#212529">Technical Match</text>
+  <text x="910" y="293" font-family="'Segoe UI', Arial, sans-serif" font-size="13" text-anchor="middle" fill="#495057">Skills alignment score</text>
+  
+  <rect x="815" y="320" width="190" height="60" rx="10" ry="10" fill="#ffffff" stroke="#dc3545" stroke-width="1.5" />
+  <text x="910" y="348" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#212529">Semantic Similarity</text>
+  <text x="910" y="368" font-family="'Segoe UI', Arial, sans-serif" font-size="13" text-anchor="middle" fill="#495057">Content relevance score</text>
+  
+  <rect x="815" y="395" width="190" height="60" rx="10" ry="10" fill="#ffffff" stroke="#dc3545" stroke-width="1.5" />
+  <text x="910" y="423" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#212529">Missing Skills</text>
+  <text x="910" y="443" font-family="'Segoe UI', Arial, sans-serif" font-size="13" text-anchor="middle" fill="#495057">Skill gaps identified</text>
+  
+  <rect x="815" y="470" width="190" height="60" rx="10" ry="10" fill="#ffffff" stroke="#dc3545" stroke-width="1.5" />
+  <text x="910" y="498" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="bold" text-anchor="middle" fill="#212529">Feedback & Tips</text>
+  <text x="910" y="518" font-family="'Segoe UI', Arial, sans-serif" font-size="13" text-anchor="middle" fill="#495057">Actionable improvements</text>
+  
+  <!-- Connecting Arrows from Input to Process -->
+  <path d="M 310 210 L 370 210" fill="none" stroke="#495057" stroke-width="3" marker-end="url(#arrowhead)" />
+  <path d="M 310 330 L 350 330 L 350 240 L 370 240" fill="none" stroke="#495057" stroke-width="3" marker-end="url(#arrowhead)" />
+  
+  <!-- Arrows inside Process -->
+  <path d="M 550 243 L 550 253" fill="none" stroke="#495057" stroke-width="2" marker-end="url(#arrowhead)" />
+  <path d="M 550 328 L 550 338" fill="none" stroke="#495057" stroke-width="2" marker-end="url(#arrowhead)" />
+  <path d="M 550 413 L 550 423" fill="none" stroke="#495057" stroke-width="2" marker-end="url(#arrowhead)" />
+  
+  <!-- Connecting Arrows from Process to Output -->
+  <path d="M 710 205 L 790 205" fill="none" stroke="#495057" stroke-width="3" marker-end="url(#arrowhead)" />
+  <path d="M 710 290 L 740 290 L 740 275 L 790 275" fill="none" stroke="#495057" stroke-width="3" marker-end="url(#arrowhead)" />
+  <path d="M 710 375 L 740 375 L 740 350 L 790 350" fill="none" stroke="#495057" stroke-width="3" marker-end="url(#arrowhead)" />
+  <path d="M 710 460 L 740 460 L 740 425 L 790 425" fill="none" stroke="#495057" stroke-width="3" marker-end="url(#arrowhead)" />
+  <path d="M 790 500 L 740 500 L 740 460" fill="none" stroke="#495057" stroke-width="3" marker-end="url(#arrowhead)" />
+  
+  <!-- Technologies Section -->
+  <rect x="70" y="570" width="960" height="90" rx="15" ry="15" fill="#212529" filter="url(#shadow)" />
+  <text x="550" y="600" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#ffffff">TECHNOLOGIES</text>
+  
+  <!-- Technology Pills -->
+  <rect x="120" y="620" width="90" height="25" rx="12.5" ry="12.5" fill="#6610f2" />
+  <text x="165" y="636" font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">Python</text>
+  
+  <rect x="220" y="620" width="90" height="25" rx="12.5" ry="12.5" fill="#6f42c1" />
+  <text x="265" y="636" font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">spaCy</text>
+  
+  <rect x="320" y="620" width="90" height="25" rx="12.5" ry="12.5" fill="#0d6efd" />
+  <text x="365" y="636" font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">BERT</text>
+  
+  <rect x="420" y="620" width="110" height="25" rx="12.5" ry="12.5" fill="#0dcaf0" />
+  <text x="475" y="636" font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">scikit-learn</text>
+  
+  <rect x="540" y="620" width="100" height="25" rx="12.5" ry="12.5" fill="#20c997" />
+  <text x="590" y="636" font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">Streamlit</text>
+  
+  <rect x="650" y="620" width="70" height="25" rx="12.5" ry="12.5" fill="#198754" />
+  <text x="685" y="636" font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">NumPy</text>
+  
+  <rect x="730" y="620" width="70" height="25" rx="12.5" ry="12.5" fill="#ffc107" />
+  <text x="765" y="636" font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">TF-IDF</text>
+  
+  <rect x="810" y="620" width="170" height="25" rx="12.5" ry="12.5" fill="#fd7e14" />
+  <text x="895" y="636" font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#ffffff">Sentence Transformers</text>
+</svg>
